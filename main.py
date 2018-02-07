@@ -26,7 +26,9 @@ def doConnect():
 
 # read data and return it in JSON format
 def doReadings():
+	# writeto_mem(bus_addr,reg_addr,data)
 	i2c.writeto_mem(0x13, 0x80, bytearray([0x08]))
+	# readfrom_mem(bus_addr,reg_addr,number of bytes)
 	data = i2c.readfrom_mem(0x13, 0x87, 2)
 	dataInInt = int.from_bytes(data, 'big')
 	print('data in int:', dataInInt)
@@ -48,5 +50,4 @@ doConnect()
 # connect to broker
 broker_id = '192.168.0.10'
 client = MQTTClient(machine.unique_id(), broker_id)
-#time.sleep_ms(1000)
 client.connect()
