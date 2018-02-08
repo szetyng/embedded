@@ -8,26 +8,10 @@ import time
 import machine
 from umqtt.simple import MQTTClient
 
-def doConnect():
-	network_name = 'EEERover'
-	network_pw = 'exhibition'
-
-	ap_if = network.WLAN(network.AP_IF)
-	ap_if.active(False)
-
-	sta_if = network.WLAN(network.STA_IF)
-	if not sta_if.isconnected():
-	    print('connecting to network...')
-	    sta_if.active(True)
-	    sta_if.connect(network_name, network_pw)
-	    while not sta_if.isconnected():
-	        pass
-	# print('network config:', sta_if.ifconfig())
-
 # read data and return it in JSON format
 def doReadings():
 	# writeto_mem(bus_addr,reg_addr,data)
-	i2c.writeto_mem(0x13, 0x80, bytearray([0x08]))
+	# i2c.writeto_mem(0x13, 0x80, bytearray([0x03])) # UNCOMMENT IT?
 	# readfrom_mem(bus_addr,reg_addr,number of bytes)
 	data = i2c.readfrom_mem(0x13, 0x87, 2)
 	dataInInt = int.from_bytes(data, 'big')
@@ -45,9 +29,27 @@ def sendData():
 i2c = I2C(sda=Pin(4), scl=Pin(5), freq=100000)
 
 # connect to internet
-doConnect()
+network_name = 'EEERover'
+network_pw = 'exhibition'
+ap_if = network.WLAN(network.AP_IF)
+ap_if.active(False)
+sta_if = network.WLAN(network.STA_IF)
+if not sta_if.isconnected():
+    print('connecting to network...')
+    sta_if.active(True)
+    sta_if.connect(network_name, network_pw)
+    while not sta_if.isconnected():
+        pass
+# print('network config:', sta_if.ifconfig())
 
 # connect to broker
 broker_id = '192.168.0.10'
 client = MQTTClient(machine.unique_id(), broker_id)
 client.connect()
+
+i2c.writeto_mem(0x13, 0x80, bytearray([0x03]))
+
+while(True):
+    sendData()
+    time.sleep_ms(1000)
+    pass
