@@ -1,7 +1,7 @@
 # Embedded Systems - ACE Caddie
 Code for Embedded Systems Design. Load main.py onto ESP8266.  
 
-How To:
+How To:  
     1. Connect the subscriber client to the broker `'EERover'`  
     2. Run sunscriber.py  
     2. Reset the ESP  
