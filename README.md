@@ -1,9 +1,10 @@
 # Embedded Systems - Ace CADDIE
-Code for Embedded Systems Design. Load main.py onto ESP8266.  
+Code for Embedded Systems Design.  
+Load main.py onto ESP8266.  
 
 How To:  
-    1. Connect the subscriber client to the broker `'EERover'`  
-    2. Run sunscriber.py  
+    1. Connect the subscriber client to the broker `EEERover`  
+    2. Run subscribe.py  
     2. Reset the ESP  
     3. Press button to start game (this is your 1st swing)  
     4. Play the game! (Press the button everytime you take a shot)  
@@ -11,11 +12,11 @@ How To:
 Background:  
   
   Main.py is the code that runs on the ESP8266 connected to the Proximity Sensor.   
-  The ESP8266 is the main publisher, publishing messages to the topic `'esys/<anonymous>`
+  The ESP8266 is the main publisher, publishing messages to the topic `esys/<anonymous>`
     How main works:  
     Creates a Client instance  
     Connects to broker  
-    Detects if game has started (Indicated by Button press)  
+    Detects if game has started (Indicated by button press)  
     Counts number of swings until the ball goes in hole (swings are indicated by button press)  
     Publishes score once a game has ended 
   
