@@ -10,7 +10,7 @@ How To:
   
 Background:
   Main.py is the code that runs on the ESP8266 connected to the Proximity Sensor.   
-  The ESP8266 is the main publisher, publishing messages to the topic 'esys/<anonymous>.  
+  The ESP8266 is the main publisher, publishing messages to the topic `'esys/<anonymous>`  
     How main works:  
     Creates a Client instance  
     Connects to broker  
@@ -18,9 +18,9 @@ Background:
     Counts number of swings until the ball goes in hole (swings are indicated by button press)  
     Publishes score once a game has ended 
   
-Subscribe.py is the code run by the client subscribed to 'esys/<anonymous>', e.g an app on your smartphone  
+Subscribe.py is the code run by the client subscribed to `'esys/<anonymous>'`, e.g an app on your smartphone  
     How subscribe.py works:   
-    Subcribes to topic 'esys/<anonymous>'  
+    Subcribes to topic `'esys/<anonymous>'`  
     Takes in user entered data (Username and Par for the golf course)  
     Decodes message published by ESP when a game has finished  
     Calculates and returns score  
