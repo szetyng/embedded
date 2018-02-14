@@ -4,7 +4,7 @@ Load main.py onto ESP8266.
 
 How To:  
     1. Connect the subscriber client to the broker `EEERover`  
-    2. Run subscribe.py  
+    2. Run subscriber.py  
     2. Reset the ESP  
     3. Press button to start game (this is your 1st swing)  
     4. Play the game! (Press the button everytime you take a shot)  
