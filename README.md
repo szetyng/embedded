@@ -20,11 +20,11 @@ The ESP8266 is the main publisher, publishing messages to the topic 'esys/<anony
   
 Subscribe.py is the code run by the client subscribed to 'esys/<anonymous>', e.g an app on your smartphone  
   How subscribe.py works:   
-  Subcribes to topic 'esys/<anonymous>'
-  Takes in user entered data (Username and Par for the golf course)
-  Decodes message published by ESP when a game has finished
-  Calculates and returns score
-  Returns player's postiion in ranking
+  Subcribes to topic 'esys/<anonymous>'  
+  Takes in user entered data (Username and Par for the golf course)  
+  Decodes message published by ESP when a game has finished  
+  Calculates and returns score  
+  Returns player's postiion in ranking  
   
   
     
