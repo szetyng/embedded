@@ -2,11 +2,11 @@
 Code for Embedded Systems Design. Load main.py onto ESP8266.  
 
 How To:
-    1. Connect the subscriber client to the broker `'EERover'`
-    2. Run sunscriber.py
-    2. Reset the ESP
-    3. Press button to start game (this is your 1st swing)
-    4. Play the game! (Press the button everytime you take a shot)
+    1. Connect the subscriber client to the broker `'EERover'`  
+    2. Run sunscriber.py  
+    2. Reset the ESP  
+    3. Press button to start game (this is your 1st swing)  
+    4. Play the game! (Press the button everytime you take a shot)  
   
 Background:
   Main.py is the code that runs on the ESP8266 connected to the Proximity Sensor.   
