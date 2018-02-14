@@ -4,7 +4,7 @@ import operator
 from operator import itemgetter
 
 
-
+# Asks for username and Par from user
 def setup_game():
 	incorrect_par = True
 	while(incorrect_par):
@@ -18,17 +18,20 @@ def setup_game():
 			return (par,username)
 		pass
 
+# Takes user input Par and the number of swings to determine final score
 def get_score(par,swing):
 	# swing = 1 returns ace regardless of par value
 	if swing == 1: 
 		return ("ace", -4)
 
 	relation = swing - par
+	
 	if relation >= 4:
 		return ("you suck at golf, try fishing instead", relation)
 	else:
 		return (golf_terms[relation], relation)
 
+# Appends player's game details into the array init_ranking and then ranks all users, lower score = higher ranking
 def get_ranking(score):
 	# current scores from friends
 	init_ranking=[
@@ -40,6 +43,7 @@ def get_ranking(score):
 	init_ranking.append([username,score[1], score[0]])
 
 	sorted_rank = sorted(init_ranking, key = itemgetter(1))
+	#Print rank, name, score
 	for i in range(len(sorted_rank)):
 		print(str(i+1) + ". " + sorted_rank[i][0] + "\t" + sorted_rank[i][2])
 
@@ -57,21 +61,23 @@ def on_message(client, userdata, msg):
 	print(msg.topic+" "+jdata)
 	golfdata = json.loads(jdata) # python dictionary
 
-	finalswing = golfdata["swing"]
+	finalswing = golfdata["swing"] 
 
 	score = get_score(par, finalswing)
 	get_ranking(score)
 
 
 
-#client = mqtt.Client(clientID="")
+# Client = mqtt.Client(clientID="")
 client = mqtt.Client("")
 client.on_connect = on_connect
 
+# Gets user details: par and username
 game_details = setup_game()
 par = game_details[0]
 username = game_details[1]
 
+# Mapping from relation to score 
 golf_terms={
 	-1 : "birdie" ,
 	-2 : "eagle" ,
