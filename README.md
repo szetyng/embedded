@@ -27,4 +27,4 @@ Subscribe.py is the code run by the client subscribed to `'esys/<anonymous>'`, e
     Returns player's postiion in ranking  
   
   
-    
+   See our website https://dharshana1407.wixsite.com/acecaddie for more info! 
