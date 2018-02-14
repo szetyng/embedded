@@ -29,7 +29,7 @@ def get_score(par,swing):
 	else:
 		return (golf_terms[relation], relation)
 
-def leaderboard(score):
+def get_ranking(score):
 	# current scores from friends
 	init_ranking=[
 		("Dharshana", -1, 'birdie'),
@@ -38,13 +38,10 @@ def leaderboard(score):
 	]
 	# add new record to ranking
 	init_ranking.append([username,score[1], score[0]])
-	return init_ranking
 
-def get_ranking(board):
-	sorted_rank = sorted(board, key = itemgetter(1))
+	sorted_rank = sorted(init_ranking, key = itemgetter(1))
 	for i in range(len(sorted_rank)):
 		print(str(i+1) + ". " + sorted_rank[i][0] + "\t" + sorted_rank[i][2])
-
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -63,8 +60,8 @@ def on_message(client, userdata, msg):
 	finalswing = golfdata["swing"]
 
 	score = get_score(par, finalswing)
-	friends_scores = leaderboard(score)
-	get_ranking(friends_scores)
+	get_ranking(score)
+
 
 
 #client = mqtt.Client(clientID="")

@@ -45,7 +45,8 @@ def golf_game():
 			goal = check_goal(counter)
 			if goal == True:
 				counter = 0
-				return
+				#return
+
 		time.sleep_ms(200)
 		pass
 
