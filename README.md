@@ -1,4 +1,4 @@
-# embedded systems
+# Embedded Systems - ACE Caddie
 Code for Embedded Systems Design. Load main.py onto ESP8266.  
 
 main.py is the code that runs on the ESP8266 connected to the Proximity Sensor.   
@@ -9,4 +9,6 @@ The ESP8266 is the main publisher, publishing messages to the topic 'esys/<anony
   Connects to broker  
     Detects if game has started (Indicated by Button press)  
     Counts number of swings until the ball goes in hole (swings are indicated by button press)  
-    Publishes score once a game has ended   
+    Publishes score once a game has ended 
+  
+  Sub
