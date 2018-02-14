@@ -12,8 +12,8 @@ from machine import RTC
 
 
 #------------- Read data, do comparison, publish accordingly -------------------
-	# return true when golf hits seensor
-def checkGoal(counter):
+# return true when golf ball hits seensor
+def check_goal(counter):
 		#Opens write comm with slave at 0x13, send 0x87,
 		#switch to read mode, read 2 bytes, return byte_array of 2 bytes
 	data = i2c.readfrom_mem(0x13, 0x87, 2)
@@ -30,10 +30,8 @@ def checkGoal(counter):
 	return False
 
 # ------------------------- define the rules here: -----------------------------
-def golfgame():
+def golf_game():
 	counter = 0
-	# par_str = input("Enter par (3,4 or 5): ")
-	# par = int(par_str)
 	while(True):
 			# Get the digital logic level of the pin
 		button = p_12.value()
@@ -41,9 +39,10 @@ def golfgame():
 		if button == 1:
 			counter += 1
 			print("counter = ", counter)
-			# only starts checking after the game has started
+		
+		# only starts checking after the game has started
 		if counter >= 1:
-			goal = checkGoal(counter)
+			goal = check_goal(counter)
 			if goal == True:
 				counter = 0
 				return
@@ -85,4 +84,4 @@ i2c.writeto_mem(0x13, 0x80, bytearray([0x03]))
 
 print("May the odds be in your favour!")
 
-golfgame()
+golf_game()

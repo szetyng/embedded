@@ -1,11 +1,11 @@
-
 import paho.mqtt.client as mqtt
 import json
 import operator
-from operator import itemgetter#, attrgetter
+from operator import itemgetter
 
 
-def setupgame():
+
+def setup_game():
 	incorrect_par = True
 	while(incorrect_par):
 		username = input("Enter your name: ")
@@ -18,27 +18,33 @@ def setupgame():
 			return (par,username)
 		pass
 
-def getscore(par,swing):
-	if swing == 1: # swing = 1 will give us ace regardless of par value
+def get_score(par,swing):
+	# swing = 1 returns ace regardless of par value
+	if swing == 1: 
 		return ("ace", -4)
 
-	relation = swing-par
-	if relation == -1:
-		return ("birdie",relation)
-	elif relation == -2:
-		return ("eagle", relation)
-	elif relation == -3:
-		return ("albatross", relation)
-	elif relation == 0:
-		return ("par", relation)
-	elif relation == 1:
-		return ("bogey", relation)
-	elif relation == 2:
-		return ("double bogey", relation)
-	elif relation == 3:
-		return ("triple bogey", relation)
-	elif relation >= 4:
-		return ("you suck at golf. try finishing instead", relation)
+	relation = swing - par
+	if relation >= 4:
+		return ("you suck at golf, try fishing instead", relation)
+	else:
+		return (golf_terms[relation], relation)
+
+def leaderboard(score):
+	# current scores from friends
+	init_ranking=[
+		("Dharshana", -1, 'birdie'),
+		("Mohika", 0, 'par'),
+		("Chelle", 3, 'triple bogey')
+	]
+	# add new record to ranking
+	init_ranking.append([username,score[1], score[0]])
+	return init_ranking
+
+def get_ranking(board):
+	sorted_rank = sorted(board, key = itemgetter(1))
+	for i in range(len(sorted_rank)):
+		print(str(i+1) + ". " + sorted_rank[i][0] + "\t" + sorted_rank[i][2])
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -50,40 +56,34 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-	 # get the user input
-
 	jdata = msg.payload.decode('utf-8') # json
 	print(msg.topic+" "+jdata)
 	golfdata = json.loads(jdata) # python dictionary
+
 	finalswing = golfdata["swing"]
-	score = getscore(par, finalswing)
-	rank = get_ranking(score)
 
-# initialising the array of score
-def get_ranking(score):
-
-	initRanking=[
-		("Dharshana", -1, 'birdie'),
-		("Mohika", 0, 'par'),
-		("Chelle", 3, 'triple bogey')
-	]
-	# add new record to ranking
-	initRanking.append([username,score[1], score[0]])
-
-	sortedrank = sorted(initRanking, key = itemgetter(1))
-
-	for i in range(len(sortedrank)):
-		print(str(i+1) + ". " + sortedrank[i][0] + "\t" + sortedrank[i][2])
-
+	score = get_score(par, finalswing)
+	friends_scores = leaderboard(score)
+	get_ranking(friends_scores)
 
 
 #client = mqtt.Client(clientID="")
 client = mqtt.Client("")
 client.on_connect = on_connect
 
-initGame = setupgame()
-par = initGame[0]
-username = initGame[1]
+game_details = setup_game()
+par = game_details[0]
+username = game_details[1]
+
+golf_terms={
+	-1 : "birdie" ,
+	-2 : "eagle" ,
+	-3 : "albatross" ,
+	0 : "par" ,
+	1 : "bogey" ,
+	2 : "double bogey" ,
+	3 : "triple bogey" 
+}
 
 client.on_message = on_message
 
