@@ -1,4 +1,4 @@
-# Embedded Systems - ACE Caddie
+# Embedded Systems - Ace CADDIE
 Code for Embedded Systems Design. Load main.py onto ESP8266.  
 
 How To:  
